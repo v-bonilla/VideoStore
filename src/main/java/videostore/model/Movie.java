@@ -1,9 +1,6 @@
 package videostore.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by victor on 9/06/17.
@@ -14,7 +11,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int movie_id;
-
+    @Column(unique=true)
     private String movie_title;
     private String movie_url;
     private String movie_desc;
@@ -23,6 +20,8 @@ public class Movie {
     private String movie_actors;
     private String movie_url_front;
     private double movie_rating;
+
+    public Movie() {}
 
     public Movie(String movie_title, String movie_url, String movie_desc, int movie_year, String movie_director, String movie_actors, String movie_url_front, double movie_rating) {
         this.movie_title = movie_title;
