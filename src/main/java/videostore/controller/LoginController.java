@@ -1,4 +1,4 @@
-package com.daw.videoclub;
+package videostore.controller;
 
 import java.util.Locale;
 

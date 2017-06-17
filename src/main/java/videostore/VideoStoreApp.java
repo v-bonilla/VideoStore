@@ -1,4 +1,4 @@
-package videostore.api;
+package videostore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
