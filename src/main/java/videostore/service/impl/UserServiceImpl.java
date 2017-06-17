@@ -1,10 +1,12 @@
 package videostore.service.impl;
 
+import org.springframework.stereotype.Service;
 import videostore.service.UserService;
 
 /**
  * Created by victor on 17/06/17.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Override
