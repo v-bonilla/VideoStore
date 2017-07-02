@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void modifyUser(User user) {
         User actualUser = repository.findByUserId(user.getUserId());
-        if (actualUser.getUserId().equals(user.getUserId())){
+        if (actualUser!= null){
             if (user.getUserName().equals("")){
                 user.setUserName(actualUser.getUserName());
             }

@@ -17,9 +17,9 @@ public interface MovieService {
 
     Movie detail (Integer movieId);
 
-    Movie newMovie (Movie movie);
+    void newMovie (Movie movie);
 
-    Movie modifyMovie (Movie movie);
+    void modifyMovie (Movie movie);
 
     void deleteMovie (Integer movieId);
 

@@ -16,48 +16,75 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
 
     @Autowired
-    private MovieRepository repo;
+    private MovieRepository repository;
 
     @Override
     public List<Movie> getMovies() {
-
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public Movie search(String movieTitle) {
 
-        return repo.findByMovieTitleIsLike(movieTitle);
+        return repository.findByMovieTitleIsLike(movieTitle);
     }
 
     @Override
     public Movie watch(Integer movieId) {
         // TODO Auto-generated method stub
-        return repo.findOne(movieId);
+        return repository.findOne(movieId);
     }
 
     @Override
     public Movie detail(Integer movieId) {
         // TODO Auto-generated method stub
-        return repo.findOne(movieId);
+        return repository.findOne(movieId);
     }
 
     @Override
-    public Movie newMovie(Movie movie) {
-        // TODO Auto-generated method stub
-        return repo.save(movie);
+    public void newMovie(Movie movie) {
+        repository.save(movie);
     }
 
     @Override
-    public Movie modifyMovie(Movie movie) {
-        // TODO Auto-generated method stub
-        return repo.save(movie);
+    public void modifyMovie(Movie movie) {
+        //TODO: si cambia titulo llamar a API
+        Movie actualMovie = repository.findByMovieId(movie.getMovieId());
+        if (actualMovie != null){
+            if (movie.getMovieTitle().equals("")){
+                movie.setMovieTitle(actualMovie.getMovieTitle());
+            }
+            if (movie.getMovieUrl().equals("")){
+                movie.setMovieUrl(actualMovie.getMovieUrl());
+            }
+            if (movie.getMovieDesc().equals("")){
+                movie.setMovieDesc(actualMovie.getMovieDesc());
+            }
+            if (movie.getMovieYear() == -1){
+                movie.setMovieYear(actualMovie.getMovieYear());
+            }
+            if (movie.getMovieDirector().equals("")){
+                movie.setMovieDirector(actualMovie.getMovieDirector());
+            }
+            if (movie.getMovieActors().equals("")){
+                movie.setMovieActors(actualMovie.getMovieActors());
+            }
+            if (movie.getMovieUrlFront().equals("")){
+                movie.setMovieUrlFront(actualMovie.getMovieUrlFront());
+            }
+            if (movie.getMovieRating() == -1.0){
+                movie.setMovieRating(actualMovie.getMovieRating());
+            }
+            repository.save(movie);
+        }
     }
 
     @Override
     public void deleteMovie(Integer movieId) {
-        // TODO Auto-generated method stub
-        repo.delete(movieId);
+        Movie actualMovie = repository.findByMovieId(movieId);
+        if (actualMovie != null){
+            repository.delete(actualMovie);
+        }
     }
 
 

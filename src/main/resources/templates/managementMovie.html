@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Administracion de peliculas</title>
+    <!-- Bootstrap core CSS -->
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default navbar-inverse navbar-fixed-top"
+                 role="navigation">
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span
+                            class="icon-bar"></span><span class="icon-bar"></span><span
+                            class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">VideoStore</a>
+                </div>
+
+                <div class="collapse navbar-collapse"
+                     id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Inicio</a></li>
+                        <li><a href="#">Administrar</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right margin-rigth">
+                        <li><p th:text="${username}"></p></li>
+                        <li><a href="/login?logout">Cerrar sesion</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search" action="movieDetail" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="search"/>
+                            <input type="submit" value="Search" class="btn btn-default" />
+                        </div>
+                    </form>
+
+                </div>
+
+            </nav>
+
+        </div>
+    </div>
+    <div class="row">
+        <br/><br/><br/>
+        <h1>Administrar peliculas</h1>
+
+        <br/><br/><br/>
+        <a th:href="@{/management/}">Volver</a>
+
+        <br/><br/><br/>
+        <h1>Movies list</h1>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Movie URL</th>
+                <th>Description</th>
+                <th>Year</th>
+                <th>Director</th>
+                <th>Actors</th>
+                <th>Front URL</th>
+                <th>Rating</th>
+            </tr>
+            <tr th:each="movie : ${movies}">
+                <td th:text="${movie.movieId}">id</td>
+                <td th:text="${movie.movieTitle}">title</td>
+                <td th:text="${movie.movieUrl}">movie url</td>
+                <td th:text="${movie.movieDesc}">description</td>
+                <td th:text="${movie.movieYear}">year</td>
+                <td th:text="${movie.movieDirector}">director</td>
+                <td th:text="${movie.movieActors}">actors</td>
+                <td th:text="${movie.movieUrlFront}">front url</td>
+                <td th:text="${movie.movieRating}">rating</td>
+            </tr>
+        </table>
+
+        <br/><br/><br/>
+        <h1>Nueva pelicula</h1>
+        <form role="form" th:action="@{/management/movie/}" method="post">
+            <div class="form-group">
+                <label for="newMovieTitle"> Titulo </label>
+                <input class="form-control" type="text" id="newMovieTitle" name="movieTitle" required="true"/>
+                <label for="newMovieURL"> URL del contenido </label>
+                <input class="form-control" type="text" id="newMovieURL" name="movieUrl" required="true"/>
+                <label for="newMovieDesc"> Descripcion </label>
+                <input class="form-control" type="text" id="newMovieDesc" name="movieDesc"/>
+                <label for="newMovieYear"> Año </label>
+                <input class="form-control" type="text" id="newMovieYear" name="movieYear"/>
+                <label for="newMovieDirector"> Director </label>
+                <input class="form-control" type="text" id="newMovieDirector" name="movieDirector"/>
+                <label for="newMovieActors"> Actores </label>
+                <input class="form-control" type="text" id="newMovieActors" name="movieActors"/>
+                <label for="newMovieURLFront"> URL de la portada </label>
+                <input class="form-control" type="text" id="newMovieURLFront" name="movieUrlFront"/>
+                <label for="newMovieRating"> Calificacion </label>
+                <input class="form-control" type="text" id="newMovieRating" name="movieRating"/>
+                <input type="submit" class="btn btn-default" value="Añadir pelicula"/>
+            </div>
+        </form>
+
+        <br/><br/><br/>
+        <h1>Modificar pelicula</h1>
+        <form role="form" th:action="@{/management/movie/}" method="post">
+            <div class="form-group">
+                <input type="hidden" name="_method" value="patch" />
+                <label for="modMovieId"> ID de pelicula </label>
+                <input class="form-control" type="text" id="modMovieId" name="movieId" required="true"/>
+                <label for="modMovieTitle"> Titulo </label>
+                <input class="form-control" type="text" id="modMovieTitle" name="movieTitle"/>
+                <label for="modMovieURL"> URL del contenido </label>
+                <input class="form-control" type="text" id="modMovieURL" name="movieUrl"/>
+                <label for="modMovieDesc"> Descripcion </label>
+                <input class="form-control" type="text" id="modMovieDesc" name="movieDesc"/>
+                <label for="modMovieYear"> Año </label>
+                <input class="form-control" type="text" id="modMovieYear" name="movieYear"/>
+                <label for="modMovieDirector"> Director </label>
+                <input class="form-control" type="text" id="modMovieDirector" name="movieDirector"/>
+                <label for="modMovieActors"> Actores </label>
+                <input class="form-control" type="text" id="modMovieActors" name="movieActors"/>
+                <label for="modMovieURLFront"> URL de la portada </label>
+                <input class="form-control" type="text" id="modMovieURLFront" name="movieUrlFront"/>
+                <label for="modMovieRating"> Calificacion </label>
+                <input class="form-control" type="text" id="modMovieRating" name="movieRating"/>
+                <input type="submit" class="btn btn-default" value="Modificar pelicula"/>
+            </div>
+        </form>
+
+        <br/><br/><br/>
+        <h1>Eliminar pelicula</h1>
+        <form role="form" th:action="@{/management/movie/}" method="post">
+            <div class="form-group">
+                <input type="hidden" name="_method" value="delete" />
+                <label for="delMovieId"> ID de pelicula </label>
+                <input class="form-control" type="text" id="delMovieId" name="movieId" required="true"/>
+                <input type="submit" class="btn btn-default" value="Eliminar pelicula"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

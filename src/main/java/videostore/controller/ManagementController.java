@@ -31,14 +31,18 @@ public class ManagementController {
 
     @RequestMapping(value = "/")
     public ModelAndView management() {
-        String username = "admin";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
         return new ModelAndView("management").addObject("username", username);
     }
 
     @RequestMapping(value = "/user/")
     public ModelAndView getUsers() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
         List<User> users = userService.getUsers();
-        return new ModelAndView("managementUser").addObject("users", users);
+        return new ModelAndView("managementUser").addObject("username", username).addObject("users", users);
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
@@ -83,40 +87,72 @@ public class ManagementController {
 
     @RequestMapping(value = "/movie/")
     public ModelAndView getMovies() {
-        return new ModelAndView("management");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        List<Movie> movies = movieService.getMovies();
+        return new ModelAndView("managementMovie").addObject("username", username).addObject("movies", movies);
     }
 
     @RequestMapping(value = "/movie/", method = RequestMethod.POST)
-    public ModelAndView newMovie(@RequestParam String movieTitle, @RequestParam String movieUrl,
-                                 @RequestParam(required = false) String movieDesc, @RequestParam(required = false) Integer movieYear,
-                                 @RequestParam(required = false) String movieDirector, @RequestParam(required = false) String movieActors,
-                                 @RequestParam(required = false) String movieUrlFront, @RequestParam(required = false) Double movieRating) {
+    public ModelAndView newMovie(@RequestParam String movieTitle,
+                                 @RequestParam String movieUrl,
+                                 @RequestParam(required = false) String movieDesc,
+                                 @RequestParam(required = false) String movieYear,
+                                 @RequestParam(required = false) String movieDirector,
+                                 @RequestParam(required = false) String movieActors,
+                                 @RequestParam(required = false) String movieUrlFront,
+                                 @RequestParam(required = false) String movieRating) {
         Movie movie = new Movie();
-        movie.setMovieActors(movieActors);
-        movie.setMovieDesc(movieDesc);
-        movie.setMovieDirector(movieDirector);
-        movie.setMovieRating(movieRating);
         movie.setMovieTitle(movieTitle);
-        movie.setMovieUrl(movieUrlFront);
+        movie.setMovieUrl(movieUrl);
+        movie.setMovieDesc(movieDesc);
+        movie.setMovieYear(Integer.valueOf(movieYear));
+        movie.setMovieDirector(movieDirector);
+        movie.setMovieActors(movieActors);
         movie.setMovieUrlFront(movieUrlFront);
-        movie.setMovieYear(movieYear);
-        return new ModelAndView("management", "managementModel", movieService.newMovie(movie));
+        movie.setMovieRating(Double.parseDouble(movieRating));
+        movieService.newMovie(movie);
+        return getMovies();
     }
 
-    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.PATCH)
-    public ModelAndView modifyMovie(@PathVariable("movieId") Integer movieId, @RequestParam String movieTitle,
-                                    @RequestParam String movieUrl, @RequestParam(required = false) String movieDesc,
-                                    @RequestParam(required = false) Integer movieYear, @RequestParam(required = false) String movieDirector,
-                                    @RequestParam(required = false) String movieActors, @RequestParam(required = false) String movieUrlFront,
-                                    @RequestParam(required = false) Double movieRating) {
+    @RequestMapping(value = "/movie/", method = RequestMethod.PATCH)
+    public ModelAndView modifyMovie(@RequestParam String movieId,
+                                    @RequestParam String movieTitle,
+                                    @RequestParam String movieUrl,
+                                    @RequestParam(required = false) String movieDesc,
+                                    @RequestParam(required = false) String movieYear,
+                                    @RequestParam(required = false) String movieDirector,
+                                    @RequestParam(required = false) String movieActors,
+                                    @RequestParam(required = false) String movieUrlFront,
+                                    @RequestParam(required = false) String movieRating) {
 
-        return new ModelAndView("management");
+        Movie movie = new Movie();
+        movie.setMovieId(Integer.valueOf(movieId));
+        movie.setMovieTitle(movieTitle);
+        movie.setMovieUrl(movieUrl);
+        movie.setMovieDesc(movieDesc);
+        if (movieYear.equals("")){
+            movie.setMovieYear(-1);
+        } else {
+            movie.setMovieYear(Integer.valueOf(movieYear));
+        }
+        movie.setMovieDirector(movieDirector);
+        movie.setMovieActors(movieActors);
+        movie.setMovieUrlFront(movieUrlFront);
+        if (movieRating.equals("")){
+            movie.setMovieRating(-1.0);
+        } else {
+            movie.setMovieRating(Double.parseDouble(movieRating));
+        }
+        movieService.modifyMovie(movie);
+        return getMovies();
     }
 
-    @RequestMapping(value = "/movie/{movieId}")
-    public ModelAndView deleteMovie(@RequestParam int id) {
-
-        return new ModelAndView("management");
+    @RequestMapping(value = "/movie/", method = RequestMethod.DELETE)
+    public ModelAndView deleteMovie(@RequestParam String movieId) {
+        movieService.deleteMovie(Integer.valueOf(movieId));
+        return getMovies();
     }
 
 }

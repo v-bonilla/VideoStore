@@ -34,10 +34,9 @@ public class Movie implements Serializable{
 
     public Movie() {}
 
-    public Movie(Integer movieId, String movieTitle, String movieUrl, String movieDesc, Integer movieYear, String movieDirector,
+    public Movie(String movieTitle, String movieUrl, String movieDesc, Integer movieYear, String movieDirector,
                  String movieActors, String movieUrlFront, Double movieRating) {
         super();
-        this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.movieUrl = movieUrl;
         this.movieDesc = movieDesc;
