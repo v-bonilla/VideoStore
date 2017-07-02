@@ -1,22 +1,20 @@
 package videostore.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import videostore.model.Movie;
 import videostore.model.User;
 import videostore.service.MovieService;
 import videostore.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by victor on 17/06/17.
@@ -33,47 +31,59 @@ public class ManagementController {
 
     @RequestMapping(value = "/")
     public ModelAndView management() {
+        String username = "admin";
+        return new ModelAndView("management").addObject("username", username);
+    }
+
+    @RequestMapping(value = "/user/")
+    public ModelAndView getUsers() {
+        List<User> users = userService.getUsers();
+        return new ModelAndView("managementUser").addObject("users", users);
+    }
+
+    @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    public ModelAndView newUser(@RequestParam("userName") String userName,
+                                @RequestParam("userPassword") String userPassword,
+                                @RequestParam("userEmail") String userEmail,
+                                @RequestParam("isAdmin") String isAdmin) {
+
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if ("Y".equals(isAdmin)) {
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        User user = new User(userName, new BCryptPasswordEncoder().encode(userPassword), userEmail, roles);
+        userService.newUser(user);
+        return getUsers();
+    }
+
+    @RequestMapping(value = "/user/", method = RequestMethod.PATCH)
+    public ModelAndView modifyUser(@RequestParam("userId") String userId,
+                                   @RequestParam("userName") String userName,
+                                   @RequestParam("userPassword") String userPassword,
+                                   @RequestParam("userEmail") String userEmail,
+                                   @RequestParam("isAdmin") String isAdmin) {
+
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if ("Y".equals(isAdmin)) {
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        User user = new User(userName, userPassword, userEmail, roles);
+        user.setUserId(Integer.valueOf(userId));
+        userService.modifyUser(user);
+        return getUsers();
+    }
+
+    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
+    public ModelAndView deleteUser(@RequestParam("userId") String userId) {
+        userService.deleteUser(Integer.valueOf(userId));
+        return getUsers();
+    }
+
+    @RequestMapping(value = "/movie/")
+    public ModelAndView getMovies() {
         return new ModelAndView("management");
-    }
-
-    @RequestMapping(value = "/user/{userId}")
-    public ModelAndView getUser(@PathVariable Integer userId) {
-
-        return new ModelAndView("management", "managementModel", userService.getUser(userId));
-    }
-
-    @RequestMapping(value = "/user/{userName}/{userPassword}/{userEmail}/", method = RequestMethod.POST)
-    public ModelAndView newUser(@PathVariable("userName") String userName,
-                                @PathVariable("userPassword") String userPassword, @PathVariable("userEmail") String userEmail,
-                                @PathVariable("admin") String admin) {
-
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if ("S".equals(admin)) {
-            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-        User user = new User(0, userName, userPassword, userEmail, roles);
-        return new ModelAndView("management", "managementModel", userService.newUser(user));
-    }
-
-    @RequestMapping(value = "/user/{userId}/", method = RequestMethod.PATCH)
-    public ModelAndView modifyUser(@PathVariable("userId") Integer userId, @RequestParam("userName") String userName,
-                                   @RequestParam("userPassword") String userPassword, @RequestParam("userEmail") String userEmail,
-                                   @RequestParam("admin") String admin) {
-
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if ("S".equals(admin)) {
-            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-        User user = new User(userId, userName, userPassword, userEmail, roles);
-        return new ModelAndView("management", "managementModel", userService.modifyUser(user));
-    }
-
-    @RequestMapping(value = "/user/{userId}", method = RequestMethod.DELETE)
-    public ModelAndView deleteUser(@PathVariable("userId") Integer userId) {
-
-        return new ModelAndView("management", "managementModel", userService.deleteUser(userId));
     }
 
     @RequestMapping(value = "/movie/", method = RequestMethod.POST)

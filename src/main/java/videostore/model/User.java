@@ -21,7 +21,7 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="user_id")
+    @Column(unique=true,name="user_id")
     private Integer userId;
     @Column(unique=true,name="user_name")
     private String userName;
@@ -35,9 +35,8 @@ public class User implements Serializable{
 
     public User() {}
 
-    public User(Integer userId, String userName, String userPassword, String userEmail, List<GrantedAuthority> roles) {
+    public User(String userName, String userPassword, String userEmail, List<GrantedAuthority> roles) {
         super();
-        this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;

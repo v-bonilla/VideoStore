@@ -23,7 +23,8 @@ public class RepositoryLoader {
     @PostConstruct
     private void initRepository(){
         GrantedAuthority[] roles = { new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_ADMIN") };
-        User user = new User(0,"admin",new BCryptPasswordEncoder().encode("admin"),"admin@videostore.com", Arrays.asList(roles));
+//        User user = new User(0,"admin",new BCryptPasswordEncoder().encode("admin"),"admin@videostore.com", Arrays.asList(roles));
+        User user = new User("a",new BCryptPasswordEncoder().encode("a"),"admin@videostore.com", Arrays.asList(roles));
         repositoryOfUsers.save(user);
     }
 

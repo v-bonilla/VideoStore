@@ -2,19 +2,19 @@ package videostore.service;
 
 import videostore.model.User;
 
+import java.util.List;
+
 /**
  * Created by victor on 17/06/17.
  */
 public interface UserService {
 
-    String login ();
+    List<User> getUsers ();
 
-    User getUser (Integer userId);
+    void newUser (User user);
 
-    User newUser (User user);
+    void modifyUser (User user);
 
-    User modifyUser (User user);
-
-    User deleteUser (Integer userId);
+    void deleteUser (Integer userId);
 
 }

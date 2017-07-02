@@ -7,6 +7,8 @@ import videostore.model.Movie;
 import videostore.repository.MovieRepository;
 import videostore.service.MovieService;
 
+import java.util.List;
+
 /**
  * Created by victor on 17/06/17.
  */
@@ -15,6 +17,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     private MovieRepository repo;
+
+    @Override
+    public List<Movie> getMovies() {
+
+        return null;
+    }
 
     @Override
     public Movie search(String movieTitle) {

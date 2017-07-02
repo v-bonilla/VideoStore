@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Watch movie</title>
+    <title>Administracion</title>
     <!-- Bootstrap core CSS -->
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
@@ -28,23 +28,24 @@
                             class="icon-bar"></span><span class="icon-bar"></span><span
                             class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">VideoStore</a>
+                    <a class="navbar-brand" href="#">VideoStore</a>
                 </div>
 
                 <div class="collapse navbar-collapse"
                      id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/home">Inicio</a></li>
+                        <li class="active"><a href="/">Inicio</a></li>
+                        <li><a href="#">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
-                        <li><a href="/management">Admin</a></li>
-                        <li><a href="/login">Iniciar Sesion</a></li>
+                        <li><p th:text="${username}"></p></li>
+                        <li><a href="/login?logout">Cerrar sesion</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" action="movieDetail" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text"/>
+                            <input class="form-control" type="text" name="search"/>
+                            <input type="submit" value="Search" class="btn btn-default" />
                         </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
 
                 </div>
@@ -53,7 +54,13 @@
 
         </div>
     </div>
-    <h1>Administracion</h1>
+    <div class="row">
+        <h1>Administracion</h1>
+        <br/><br/><br/>
+        <a th:href="@{/management/user/}">Administrar usuarios</a>
+        <a th:href="@{/management/movie/}">Administrar peliculas</a>
+
+    </div>
 </div>
 </body>
 </html>

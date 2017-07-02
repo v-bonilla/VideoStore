@@ -2,10 +2,14 @@ package videostore.service;
 
 import videostore.model.Movie;
 
+import java.util.List;
+
 /**
  * Created by victor on 17/06/17.
  */
 public interface MovieService {
+
+    List<Movie> getMovies();
 
     Movie search (String movieTitle);
 
