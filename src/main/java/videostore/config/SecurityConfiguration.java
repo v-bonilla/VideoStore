@@ -34,9 +34,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .invalidateHttpSession(true)
                 .permitAll();
-
-//        http.headers().frameOptions().addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youtube.com"))));
-//        http.headers().frameOptions().disable();
     }
 
     @Override

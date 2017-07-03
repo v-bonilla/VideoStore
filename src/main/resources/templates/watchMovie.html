@@ -57,7 +57,7 @@
     <div id="vidcontainer" class="container">
         <h2 th:text="${movie.movieTitle}">Titulo</h2>
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="vid" class="embed-responsive-item" th:src="${movie.movieUrl}"></iframe>
+            <iframe id="vid" class="embed-responsive-item" th:src="${movie.movieUrl}" frameborder="0" allowfullscreen="true"></iframe>
         </div>
     </div>
 </div>
