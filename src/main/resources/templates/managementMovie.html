@@ -34,17 +34,17 @@
                 <div class="collapse navbar-collapse"
                      id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Inicio</a></li>
-                        <li><a href="#">Administrar</a></li>
+                        <li><a href="/">Inicio</a></li>
+                        <li class="active"><a href="#" th:href="@{/management/}">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
                         <li><p th:text="${username}"></p></li>
                         <li><a href="/login?logout">Cerrar sesion</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search" action="movieDetail" method="post">
+                    <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="search"/>
-                            <input type="submit" value="Search" class="btn btn-default" />
+                            <input class="form-control" type="text" name="movieTitle"/>
+                            <input type="submit" value="Search" class="btn btn-default"/>
                         </div>
                     </form>
 

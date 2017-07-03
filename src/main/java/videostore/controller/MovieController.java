@@ -26,8 +26,8 @@ public class MovieController {
     private MovieService movieService;
 
 
-    @RequestMapping(value = "/{movieTitle}", method = RequestMethod.GET)
-    public ModelAndView movieDetail(@PathVariable(value="movieTitle") String movieTitle){
+    @RequestMapping(value = "/{movieId}", method = RequestMethod.GET)
+    public ModelAndView movieDetail(@PathVariable(value="movieId") String movieId){
         // Check if user is already logged in
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = null;
@@ -39,17 +39,18 @@ public class MovieController {
                 isAdmin = true;
             }
         }
-        Movie movie = movieService.detail(movieTitle);
+        Movie movie = movieService.detailById(Integer.valueOf(movieId));
         return new ModelAndView("movieDetail").addObject("usuername", username).addObject("isAdmin", isAdmin).addObject("movie", movie);
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView searchMovie(@RequestParam(required=true,value="movieTitle") String movieTitle){
-        return movieDetail(movieTitle);
+        Movie movie = movieService.detailByTitle(movieTitle);
+        return movieDetail(String.valueOf(movie.getMovieId()));
     }
 
-    @RequestMapping(value = "/watch/{movieTitle}", method = RequestMethod.GET)
-    public ModelAndView watchMovie(@PathVariable(value="movieTitle") String movieTitle){
+    @RequestMapping(value = "/watch/{movieId}", method = RequestMethod.GET)
+    public ModelAndView watchMovie(@PathVariable(value="movieId") String movieId){
         // Check if user is already logged in
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = null;
@@ -61,7 +62,7 @@ public class MovieController {
                 isAdmin = true;
             }
         }
-        Movie movie = movieService.detail(movieTitle);
+        Movie movie = movieService.detailById(Integer.valueOf(movieId));
         return new ModelAndView("watchMovie").addObject("usuername", username).addObject("isAdmin", isAdmin).addObject("movie", movie);
     }
 

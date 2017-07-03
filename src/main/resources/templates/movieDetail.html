@@ -68,7 +68,7 @@
                 <div class="collapse navbar-collapse"
                      id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Inicio</a></li>
+                        <li><a href="/">Inicio</a></li>
                         <li th:if="${isAdmin}"><a href="/management/">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
@@ -119,7 +119,7 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <a th:href="@{'/movie/watch/' + ${movie.movieTitle}}" class="btn btn-lg btn-danger btn-block">Ver pelicula</a>
+            <a th:href="@{'/movie/watch/' + ${movie.movieId}}" class="btn btn-lg btn-danger btn-block">Ver pelicula</a>
         </div>
         <div class="col-md-4"></div>
     </div>

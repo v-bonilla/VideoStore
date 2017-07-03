@@ -11,7 +11,9 @@ public interface MovieService {
 
     List<Movie> getMovies();
 
-    Movie detail (String movieTitle);
+    Movie detailById (Integer movieId);
+
+    Movie detailByTitle (String movieTitle);
 
     void newMovie (Movie movie);
 

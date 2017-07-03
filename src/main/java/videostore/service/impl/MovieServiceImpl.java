@@ -28,7 +28,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie detail(String movieTitle) {
+    public Movie detailById(Integer movieId) {
+        return repository.findByMovieId(movieId);
+    }
+
+    @Override
+    public Movie detailByTitle(String movieTitle) {
         return repository.findByMovieTitleIsLike(movieTitle);
     }
 
