@@ -94,7 +94,7 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    <img alt="Cartel de la pelicula" class="img-rounded"
+                    <img th:alt="'Cartel de ' + ${movie.movieTitle}" class="img-rounded"
                          th:src="${movie.movieUrlFront}"/>
                 </div>
             </div>
@@ -110,7 +110,6 @@
                 <dt>Director</dt>
                 <dd id="movieDirector" th:text="${movie.movieDirector}">Director</dd>
                 <dt>Reparto</dt>
-                <!--<dd id="movieStarring" th:text="${#strings.append(#strings.substring(movie.movieActors,3,60), '...')}">Reparto</dd>-->
                 <dd id="movieStarring" th:text="${movie.movieActors}">Reparto</dd>
                 <dt>Valoracion</dt>
                 <dd id="movieRating" th:text="${movie.movieRating}">Valoracion</dd>
@@ -120,7 +119,7 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <a href="/movie/watch" class="btn btn-lg btn-danger btn-block">Ver pelicula</a>
+            <a th:href="@{'/movie/watch/' + ${movie.movieTitle}}" class="btn btn-lg btn-danger btn-block">Ver pelicula</a>
         </div>
         <div class="col-md-4"></div>
     </div>

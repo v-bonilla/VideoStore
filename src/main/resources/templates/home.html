@@ -117,31 +117,31 @@
                     <li data-slide-to="2" data-target="#carousel-815037"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="item">
-                        <a href="/movie"><img alt="Carousel Bootstrap First"
-                             src="/images/wonderWoman.jpg"/></a>
-                        <div class="carousel-caption">
-                            <h4>Los ultimos estrenos</h4>
-                            <p>Aqui podras ver los ultimos estrenos y anticipos de las
-                                nuevas peliculas de los proximos meses!!</p>
-                        </div>
+                    <div class="item" th:each="movie : ${movies}">
+                        <a th:href="@{'/movie/' + ${movie.movieTitle}}">
+                            <img th:alt="'Cartel de ' + ${movie.movieTitle}" th:src="${movie.movieUrlFront}"/>
+                        </a>
                     </div>
-                    <div class="item active">
-                        <img alt="Carousel Bootstrap Second"
-                             src="/images/dunkerque.jpg"/>
-                        <div class="carousel-caption">
-                            <h4></h4>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img alt="Carousel Bootstrap Third"
-                             src="/images/spiderman.jpg"/>
-                        <div class="carousel-caption">
-                            <h4></h4>
-                            <p></p>
-                        </div>
-                    </div>
+                    <!--<div class="item">-->
+                        <!--<a href="/movie"><img alt="Carousel Bootstrap First"-->
+                             <!--src="/images/wonderWoman.jpg"/></a>-->
+                    <!--</div>-->
+                    <!--<div class="item">-->
+                        <!--<img alt="Carousel Bootstrap Second"-->
+                             <!--src="/images/dunkerque.jpg"/>-->
+                        <!--<div class="carousel-caption">-->
+                            <!--<h4></h4>-->
+                            <!--<p></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="item">-->
+                        <!--<img alt="Carousel Bootstrap Third"-->
+                             <!--src="/images/spiderman.jpg"/>-->
+                        <!--<div class="carousel-caption">-->
+                            <!--<h4></h4>-->
+                            <!--<p></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
                 <a class="left carousel-control" href="#carousel-815037"
                    data-slide="prev"><span

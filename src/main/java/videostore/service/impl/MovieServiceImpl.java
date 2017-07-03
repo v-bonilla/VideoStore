@@ -27,18 +27,6 @@ public class MovieServiceImpl implements MovieService {
         return repository.findAll();
     }
 
-//    @Override
-//    public Movie search(String movieTitle) {
-//
-//        return repository.findByMovieTitleIsLike(movieTitle);
-//    }
-
-    @Override
-    public Movie watch(Integer movieId) {
-        // TODO Auto-generated method stub
-        return repository.findOne(movieId);
-    }
-
     @Override
     public Movie detail(String movieTitle) {
         return repository.findByMovieTitleIsLike(movieTitle);

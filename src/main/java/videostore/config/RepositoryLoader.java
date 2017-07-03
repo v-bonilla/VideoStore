@@ -38,7 +38,7 @@ public class RepositoryLoader {
 
         // Movies
         Movie movie1 = new Movie("Interstellar",
-                "https://www.youtube.com/watch?v=UoSSbmD9vqc",
+                "http://www.youtube.com/watch?v=UoSSbmD9vqc",
                 "",
                 -1,
                 "",
@@ -47,7 +47,7 @@ public class RepositoryLoader {
                 0.0);
         repositoryOfMovies.save(tmdbRestService.getMovieInfo(movie1));
         Movie movie2 = new Movie("Deadpool",
-                "https://www.youtube.com/watch?v=7evoYlgMmoY",
+                "http://www.youtube.com/watch?v=7evoYlgMmoY",
                 "",
                 -1,
                 "",
@@ -56,7 +56,7 @@ public class RepositoryLoader {
                 0.0);
         repositoryOfMovies.save(tmdbRestService.getMovieInfo(movie2));
         Movie movie3 = new Movie("Regreso al futuro II",
-                "https://www.youtube.com/watch?v=Bmr2fgaoSxs",
+                "http://www.youtube.com/watch?v=Bmr2fgaoSxs",
                 "",
                 -1,
                 "",

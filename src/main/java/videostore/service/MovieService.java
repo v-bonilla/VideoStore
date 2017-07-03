@@ -11,10 +11,6 @@ public interface MovieService {
 
     List<Movie> getMovies();
 
-//    Movie search (String movieTitle);
-
-    Movie watch (Integer movieId);
-
     Movie detail (String movieTitle);
 
     void newMovie (Movie movie);
