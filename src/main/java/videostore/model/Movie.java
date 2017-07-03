@@ -19,13 +19,13 @@ public class Movie implements Serializable{
     private String movieTitle;
     @Column(name="movie_url")
     private String movieUrl;
-    @Column(name="movie_desc")
+    @Column(name="movie_desc", length = 5000)
     private String movieDesc;
     @Column(name="movie_year")
     private Integer movieYear;
     @Column(name="movie_director")
     private String movieDirector;
-    @Column(name="movie_actors")
+    @Column(name="movie_actors", length = 5000)
     private String movieActors;
     @Column(name="movie_url_front")
     private String movieUrlFront;

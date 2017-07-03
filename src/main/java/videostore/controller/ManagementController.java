@@ -107,12 +107,18 @@ public class ManagementController {
         movie.setMovieTitle(movieTitle);
         movie.setMovieUrl(movieUrl);
         movie.setMovieDesc(movieDesc);
-        movie.setMovieYear(Integer.valueOf(movieYear));
-        movie.setMovieDirector(movieDirector);
+        if (movieYear.equals("")){
+            movie.setMovieYear(-1);
+        } else {
+            movie.setMovieYear(Integer.valueOf(movieYear));
+        }        movie.setMovieDirector(movieDirector);
         movie.setMovieActors(movieActors);
         movie.setMovieUrlFront(movieUrlFront);
-        movie.setMovieRating(Double.parseDouble(movieRating));
-        movieService.newMovie(movie);
+        if (movieRating.equals("")){
+            movie.setMovieRating(-1.0);
+        } else {
+            movie.setMovieRating(Double.parseDouble(movieRating));
+        }        movieService.newMovie(movie);
         return getMovies();
     }
 

@@ -9,6 +9,7 @@ import videostore.model.Movie;
 import videostore.model.User;
 import videostore.repository.MovieRepository;
 import videostore.repository.UserRepository;
+import videostore.service.TMDBRestService;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -25,6 +26,9 @@ public class RepositoryLoader {
     @Autowired
     private MovieRepository repositoryOfMovies;
 
+    @Autowired
+    private TMDBRestService tmdbRestService;
+
     @PostConstruct
     private void initRepository(){
         // Admin user
@@ -33,15 +37,33 @@ public class RepositoryLoader {
         repositoryOfUsers.save(user);
 
         // Movies
-        Movie movie1 = new Movie("Star Wars VII: El despertar de la fuerza",
-                "https://www.youtube.com/watch?v=FHbnQ5DUUF4",
-                "Descripcion de Star Wars VII",
-                2015,
-                "J. J. Abrams",
-                "Daisy Ridler, John Boyega",
-                "http",
-                6.9);
-        repositoryOfMovies.save(movie1);
+        Movie movie1 = new Movie("Interstellar",
+                "https://www.youtube.com/watch?v=UoSSbmD9vqc",
+                "",
+                -1,
+                "",
+                "",
+                "",
+                0.0);
+        repositoryOfMovies.save(tmdbRestService.getMovieInfo(movie1));
+        Movie movie2 = new Movie("Deadpool",
+                "https://www.youtube.com/watch?v=7evoYlgMmoY",
+                "",
+                -1,
+                "",
+                "",
+                "",
+                0.0);
+        repositoryOfMovies.save(tmdbRestService.getMovieInfo(movie2));
+        Movie movie3 = new Movie("Regreso al futuro II",
+                "https://www.youtube.com/watch?v=Bmr2fgaoSxs",
+                "",
+                -1,
+                "",
+                "",
+                "",
+                0.0);
+        repositoryOfMovies.save(tmdbRestService.getMovieInfo(movie3));
     }
 
 }

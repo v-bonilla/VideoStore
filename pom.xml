@@ -41,6 +41,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!-- TMDB's API -->
+        <dependency>
+            <groupId>info.movito</groupId>
+            <artifactId>themoviedbapi</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
     <build>

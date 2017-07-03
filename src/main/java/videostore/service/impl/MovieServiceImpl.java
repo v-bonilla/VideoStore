@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import videostore.model.Movie;
 import videostore.repository.MovieRepository;
 import videostore.service.MovieService;
+import videostore.service.TMDBRestService;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     private MovieRepository repository;
+
+    @Autowired
+    private TMDBRestService tmdbRestService;
 
     @Override
     public List<Movie> getMovies() {
@@ -43,7 +47,27 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void newMovie(Movie movie) {
-        repository.save(movie);
+        if (repository.findByMovieTitleIsLike(movie.getMovieTitle()) == null){
+            if (movie.getMovieDesc().equals("")) {
+                movie.setMovieDesc(tmdbRestService.getMovieDesc(movie.getMovieTitle()));
+            }
+            if (movie.getMovieYear() == -1) {
+                movie.setMovieYear(tmdbRestService.getMovieYear(movie.getMovieTitle()));
+            }
+            if (movie.getMovieDirector().equals("")) {
+                movie.setMovieDirector(tmdbRestService.getMovieDirector(movie.getMovieTitle()));
+            }
+            if (movie.getMovieActors().equals("")) {
+                movie.setMovieActors(tmdbRestService.getMovieActors(movie.getMovieTitle()));
+            }
+            if (movie.getMovieUrlFront().equals("")) {
+                movie.setMovieUrlFront(tmdbRestService.getMovieUrlFront(movie.getMovieTitle()));
+            }
+            if (movie.getMovieRating() == -1.0) {
+                movie.setMovieRating(tmdbRestService.getMovieRating(movie.getMovieTitle()));
+            }
+            repository.save(movie);
+        }
     }
 
     @Override
