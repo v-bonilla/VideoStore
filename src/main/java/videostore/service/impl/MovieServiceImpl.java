@@ -27,11 +27,11 @@ public class MovieServiceImpl implements MovieService {
         return repository.findAll();
     }
 
-    @Override
-    public Movie search(String movieTitle) {
-
-        return repository.findByMovieTitleIsLike(movieTitle);
-    }
+//    @Override
+//    public Movie search(String movieTitle) {
+//
+//        return repository.findByMovieTitleIsLike(movieTitle);
+//    }
 
     @Override
     public Movie watch(Integer movieId) {
@@ -40,9 +40,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie detail(Integer movieId) {
-        // TODO Auto-generated method stub
-        return repository.findOne(movieId);
+    public Movie detail(String movieTitle) {
+        return repository.findByMovieTitleIsLike(movieTitle);
     }
 
     @Override

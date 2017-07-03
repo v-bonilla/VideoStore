@@ -23,6 +23,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
     private TmdbApi tmdbApi = new TmdbApi("333162d886cfdcd3deb3b5dea6e31a06");
     private TmdbSearch searchApi = tmdbApi.getSearch();
     private TmdbMovies moviesApi = tmdbApi.getMovies();
+    private final int POSTER_SIZE = 3;
 
 
     @Override
@@ -37,7 +38,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
             ourMovie.setMovieYear(Integer.valueOf(movieDb.getReleaseDate().substring(0, 4)));
             ourMovie.setMovieDirector(movieDb.getCredits().getCrew().get(0).getName());
             ourMovie.setMovieActors(castToString(movieDb.getCredits().getCast()));
-            ourMovie.setMovieUrlFront(tmdbApi.getConfiguration().getSecureBaseUrl() + tmdbApi.getConfiguration().getPosterSizes().get(2) + movieDb.getPosterPath());
+            ourMovie.setMovieUrlFront(tmdbApi.getConfiguration().getSecureBaseUrl() + tmdbApi.getConfiguration().getPosterSizes().get(POSTER_SIZE) + movieDb.getPosterPath());
             // Formatea el double con DecimalFormat y parsea a double porque DecimalFormat devuelve un string
             ourMovie.setMovieRating(Double.parseDouble(new DecimalFormat("#.##").format((double) movieDb.getVoteAverage())));
         }
@@ -104,7 +105,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         if (movieResultsPage.getResults().size() > 0) {
             // Search complete info of movie
             MovieDb movieDb = moviesApi.getMovie(movieResultsPage.getResults().get(0).getId(), "es", new TmdbMovies.MovieMethod[]{TmdbMovies.MovieMethod.credits});
-            urlFront = tmdbApi.getConfiguration().getSecureBaseUrl() + tmdbApi.getConfiguration().getPosterSizes().get(2) + movieDb.getPosterPath();
+            urlFront = tmdbApi.getConfiguration().getSecureBaseUrl() + tmdbApi.getConfiguration().getPosterSizes().get(POSTER_SIZE) + movieDb.getPosterPath();
         }
         return urlFront;
     }

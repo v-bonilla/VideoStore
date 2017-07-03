@@ -89,9 +89,9 @@
                         <li th:if="${!isLogged}"><a href="/login">Iniciar sesion</a></li>
                         <li th:if="${isLogged}"><a href="/login?logout">Cerrar sesion</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search" action="movieDetail" method="post">
+                    <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="search"/>
+                            <input class="form-control" type="text" name="movieTitle"/>
                             <input type="submit" value="Search" class="btn btn-default" />
                         </div>
                     </form>

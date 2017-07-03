@@ -1,6 +1,9 @@
 package videostore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import videostore.model.Movie;
 import videostore.service.MovieService;
 
 /**
@@ -22,19 +26,29 @@ public class MovieController {
     private MovieService movieService;
 
 
-    @RequestMapping(value = "/{movieId}",method=RequestMethod.GET)
-    public ModelAndView movieDetail( @PathVariable(value="movieId") Integer movieId){
-
-        return new ModelAndView("movieDetail","movieModel",movieService.detail(movieId));
+    @RequestMapping(value = "/{movieTitle}", method = RequestMethod.GET)
+    public ModelAndView movieDetail(@PathVariable(value="movieTitle") String movieTitle){
+        // Check if user is already logged in
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = null;
+        boolean isAdmin = false;
+        if (!auth.getName().equals("anonymousUser")){
+            username = auth.getName();
+            SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+            if (auth.getAuthorities().contains(roleAdmin)){
+                isAdmin = true;
+            }
+        }
+        Movie movie = movieService.detail(movieTitle);
+        return new ModelAndView("movieDetail").addObject("usuername", username).addObject("isAdmin", isAdmin).addObject("movie", movie);
     }
 
-    @RequestMapping(value = "/search",method=RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView searchMovie(@RequestParam(required=true,value="movieTitle") String movieTitle){
-
-        return new ModelAndView("movieDetail","movieModel",movieService.search(movieTitle));
+        return movieDetail(movieTitle);
     }
 
-    @RequestMapping(value = "/watch/{movieId}",method=RequestMethod.GET)
+    @RequestMapping(value = "/watch/{movieId}", method = RequestMethod.GET)
     public ModelAndView watchMovie(@PathVariable(value="movieId") Integer movieId){
 
         return new ModelAndView("movieDetail","movieModel",movieService.watch(movieId));

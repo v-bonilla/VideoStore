@@ -68,17 +68,18 @@
                 <div class="collapse navbar-collapse"
                      id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/home">Inicio</a></li>
+                        <li class="active"><a href="/">Inicio</a></li>
+                        <li th:if="${isAdmin}"><a href="/management/">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
-                        <li><a href="/management">Admin</a></li>
-                        <li><a href="/login">Iniciar Sesion</a></li>
+                        <li><p th:text="${username}"></p></li>
+                        <li><a href="/login?logout">Cerrar sesion</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text"/>
+                            <input class="form-control" type="text" name="movieTitle"/>
+                            <input type="submit" value="Search" class="btn btn-default" />
                         </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
 
                 </div>
@@ -93,27 +94,26 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    <img alt="Bootstrap Image Preview" class="img-rounded"
-                         src="http://lorempixel.com/300/350/"/>
+                    <img alt="Cartel de la pelicula" class="img-rounded"
+                         th:src="${movie.movieUrlFront}"/>
                 </div>
             </div>
 
         </div>
         <div class="col-md-7">
-            <label id="movieTitle" class="movie-title">Pulp Fiction</label>
+            <label id="movieTitle" class="movie-title" th:text="${movie.movieTitle}">Titulo</label>
             <dl>
-                <dt>Duracion</dt>
-                <dd id="movieDuration">180 min</dd>
-                <dt>Año</dt>
-                <dd id="movieYear">1994</dd>
                 <dt>Sinopsis</dt>
-                <dd id="movieSinopsis">Vestibulum id ligula porta felis
-                    euismod semper eget lacinia odio sem nec elit.
-                </dd>
+                <dd id="movieSinopsis" th:text="${movie.movieDesc}">Sinopsis</dd>
+                <dt>Año</dt>
+                <dd id="movieYear" th:text="${movie.movieYear}">Año</dd>
                 <dt>Director</dt>
-                <dd id="movieDirector">Quentin Tarantino</dd>
+                <dd id="movieDirector" th:text="${movie.movieDirector}">Director</dd>
                 <dt>Reparto</dt>
-                <dd id="movieStarring">John Travolta, Uma Thurman, Samuel L.Jackson, Bruce Willis</dd>
+                <!--<dd id="movieStarring" th:text="${#strings.append(#strings.substring(movie.movieActors,3,60), '...')}">Reparto</dd>-->
+                <dd id="movieStarring" th:text="${movie.movieActors}">Reparto</dd>
+                <dt>Valoracion</dt>
+                <dd id="movieRating" th:text="${movie.movieRating}">Valoracion</dd>
             </dl>
         </div>
     </div>
@@ -159,15 +159,5 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/scripts.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        console.log("ready!");
-
-
-        // TODO Ajax getting movie details
-        setMovieDetails();
-
-    });
-</script>
 </body>
 </html>
