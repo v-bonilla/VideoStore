@@ -18,12 +18,9 @@
             margin-top: 100px;
         }
 
-        /* Style all font awesome icons */
         .fa {
-            /* padding: 40px;*/
             font-size: 40px;
             width: 50px;
-            /*text-align: center;*/
             text-decoration: none;
             padding-top: 15px;
         }
@@ -34,7 +31,6 @@
             padding-top: 15px;
         }
 
-        /* Add a hover effect if you want */
         .fa:hover {
             opacity: 0.7;
         }
@@ -42,20 +38,6 @@
         .blockquote {
             border-left: 5px solid #212121;
         }
-
-        /* Set a specific color for each brand */
-
-        /* Facebook */
-        /* .fa-facebook {
-        background: #3B5998;
-        color: white;
-        } */
-
-        /* Twitter */
-        /* .fa-twitter {
-        background: #55ACEE;
-        color: white;
-        } */
     </style>
 
 </head>
@@ -85,14 +67,15 @@
                         <li th:if="${isAdmin}"><a href="/management/">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
-                        <li><p th:text="${username}"></p></li>
-                        <li><a href="/login">Iniciar sesion</a></li>
-                        <li><a href="/login?logout">Cerrar sesion</a></li>
+                        <li th:if="${isLogged}"><a th:text="${username}"></a></li>	
+                        <li th:if="${!isLogged}"><a href="/login">Iniciar sesión</a></li>
+                        <li th:if="${isLogged}"><a href="/login?logout">Cerrar sesión</a></li>
+                        <li><a>  </a></li> 	<!-- Para dejar margen derecho al final -->
                     </ul>
                     <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
                             <input class="form-control" type="text" name="movieTitle"/>
-                            <input type="submit" value="Search" class="btn btn-default"/>
+                            <input type="submit" value="Buscar" class="btn btn-default"/>
                         </div>
                     </form>
 
@@ -143,15 +126,15 @@
         <div class="col-md-12">
             <div class="jumbotron">
                 <h2>Video Streaming</h2>
-                <p>VideoStore es una aplicacion Web que te permite ver una gran
-                    coleccion de peliculas. Ofrece un servicio rapido, contenido en
-                    alta calidad y los ultimos estrenos. Esta plataforma nace de la
+                <p>VideoStore es una aplicación Web que te permite ver una gran
+                    colección de películas. Ofrece un servicio rápido, contenido en
+                    alta calidad y los últimos estrenos. Esta plataforma nace de la
                     necesidad de ofrecer a los usuarios el mejor cine sin tener que
-                    moverse del sofa. ¡Pulsa aqui abajo si quieres saber mas sobre
+                    moverse del sofá. ¡Pulsa aquí abajo si quieres saber más sobre
                     nosotros!</p>
                 <p>
                     <a class="btn btn-primary btn-large"
-                       href="https://www.google.es/search?q=VideoStore">Mas</a>
+                       href="https://www.google.es/search?q=VideoStore">Más</a>
                 </p>
             </div>
         </div>

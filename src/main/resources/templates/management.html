@@ -5,6 +5,9 @@
     <title>Administracion</title>
     <!-- Bootstrap core CSS -->
 
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
@@ -38,8 +41,9 @@
                         <li class="active"><a href="#">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
-                        <li><p th:text="${username}"></p></li>
-                        <li><a href="/login?logout">Cerrar sesion</a></li>
+                        <li th:if="${isLogged}"><a th:text="${username}"></a></li>
+                        <li><a href="/login?logout">Cerrar sesión</a></li>
+                        <li><a>  </a></li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
@@ -54,13 +58,15 @@
 
         </div>
     </div>
-    <div class="row">
-        <h1>Administracion</h1>
-        <br/><br/><br/>
-        <a th:href="@{/management/user/}">Administrar usuarios</a>
-        <a th:href="@{/management/movie/}">Administrar peliculas</a>
-
-    </div>
+    <div class="row qt">
+      <div class="col-md-1"></div>
+  		<div class="col-md-10">
+          <h1>Administración</h1>
+          <br/><br/><br/>
+          <a class="btn btn-danger" th:href="@{/management/user/}">Administrar usuarios</a>
+  	      <a class="btn btn-danger" th:href="@{/management/movie/}">Administrar películas</a>
+      </div>
+  </div>
 </div>
 </body>
 </html>

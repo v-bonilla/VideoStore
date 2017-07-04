@@ -5,6 +5,9 @@
     <title>Administracion de usuarios</title>
     <!-- Bootstrap core CSS -->
 
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
@@ -38,13 +41,14 @@
                         <li class="active"><a href="#" th:href="@{/management/}">Administrar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right margin-rigth">
-                        <li><p th:text="${username}"></p></li>
-                        <li><a href="/login?logout">Cerrar sesion</a></li>
+                        <li th:if="${isLogged}"><a th:text="${username}"></a></li>
+                        <li><a href="/login?logout">Cerrar sesión</a></li>
+                        <li><a>  </a></li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
                             <input class="form-control" type="text" name="movieTitle"/>
-                            <input type="submit" value="Search" class="btn btn-default"/>
+                            <input type="submit" value="Buscar" class="btn btn-default"/>
                         </div>
                     </form>
 
@@ -54,79 +58,84 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row margin-left">
         <br/><br/><br/>
-        <h1>Administrar usuarios</h1>
+        <div class="col-md-1"></div>
+			  <div class="col-md-10">
+          <h1>Administrar usuarios</h1>
 
-        <br/><br/><br/>
-        <a th:href="@{/management/}">Volver</a>
+          <br/><br/><br/>
+          <a class="btn btn-danger" th:href="@{/management/}">Volver</a>
 
-        <br/><br/><br/>
-        <h1>Users list</h1>
+          <br/><br/><br/>
+          <h1>Users list</h1>
 
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Roles</th>
-            </tr>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userId}">id</td>
-                <td th:text="${user.userName}">username</td>
-                <td th:text="${user.userEmail}">email</td>
-                <div th:each="role : ${user.roles}">
-                    <td th:text="${role}"></td>
-                </div>
-            </tr>
-        </table>
+          <table id="usersTable" class="table table-hover">
+  					<tr>
+  						<th>ID</th>
+  						<th>Username</th>
+  						<th>Email</th>
+  						<th>Roles</th>
+  					</tr>
+  					<tr th:each="user : ${users}">
+  						<td th:text="${user.userId}">id</td>
+  						<td th:text="${user.userName}">username</td>
+  						<td th:text="${user.userEmail}">email</td>
+  						<td>
+  							<p th:each="role : ${user.roles}" th:text="${role}"></p>
+  						</td>
+  					</tr>
+  				</table>
 
-        <br/><br/><br/>
-        <h1>Nuevo usuario</h1>
-        <form role="form" th:action="@{/management/user/}" method="post">
-            <div class="form-group">
-                <label for="newUsername"> Nombre de usuario </label>
-                <input class="form-control" type="text" id="newUsername" name="userName" required="true"/>
-                <label for="newPassword"> Contraseña </label>
-                <input class="form-control" type="password" id="newPassword" name="userPassword" required="true"/>
-                <label for="newEmail"> Email </label>
-                <input class="form-control" type="email" id="newEmail" name="userEmail" required="true"/>
-                <label for="newIsAdmin"> Administrador (Y/N) </label>
-                <input class="form-control" type="text" id="newIsAdmin" name="isAdmin" required="true"/>
-                <input type="submit" class="btn btn-default" value="Añadir usuario"/>
-            </div>
-        </form>
+          <br/><br/><br/>
+          <h1>Nuevo usuario</h1>
+          <form role="form" th:action="@{/management/user/}" method="post">
+              <div class="form-group">
+                <label class="padding-top" for="newUsername"> Nombre de usuario </label>
+                <input class="form-control" type="text" id="newUsername" name="userName" required="true" />
+                <label class="padding-top"  for="newPassword"> Contraseña </label>
+                <input class="form-control" type="password" id="newPassword" name="userPassword" required="true" />
+                <label class="padding-top"  for="newEmail"> Email </label>
+                <input class="form-control" type="email" id="newEmail" name="userEmail" required="true" />
+                <label class="padding-top"  for="newIsAdmin"> Administrador (Y/N) </label>
+                <input class="form-control" type="text" id="newIsAdmin" name="isAdmin" required="true" />
 
-        <br/><br/><br/>
-        <h1>Modificar usuario</h1>
-        <form role="form" th:action="@{/management/user/}" method="post">
-            <div class="form-group">
-                <input type="hidden" name="_method" value="patch"/>
-                <label for="modUserId"> ID de usuario </label>
-                <input class="form-control" type="text" id="modUserId" name="userId" required="true"/>
-                <label for="modUsername"> Nombre de usuario </label>
-                <input class="form-control" type="text" id="modUsername" name="userName"/>
-                <label for="modPassword"> Contraseña </label>
-                <input class="form-control" type="password" id="modPassword" name="userPassword"/>
-                <label for="modEmail"> Email </label>
-                <input class="form-control" type="email" id="modEmail" name="userEmail"/>
+                <input type="submit" class="btn btn-success padding-top" value="Añadir usuario" />
+              </div>
+          </form>
+
+          <br/><br/><br/>
+          <h1>Modificar usuario</h1>
+          <form role="form" th:action="@{/management/user/}" method="post">
+              <div class="form-group">
+                <input type="hidden" name="_method" value="patch" />
+                <label class="padding-top" for="modUserId"> ID de usuario </label>
+                <input class="form-control" type="text" id="modUserId" name="userId" required="true" />
+                <label class="padding-top" for="modUsername"> Nombre de usuario </label>
+                <input class="form-control" type="text" id="modUsername" name="userName" />
+                <label class="padding-top" for="modPassword"> Contraseña </label>
+                <input class="form-control" type="password" id="modPassword" name="userPassword" />
+                <label class="padding-top" for="modEmail"> Email </label>
+                <input class="form-control" type="email" id="modEmail" name="userEmail" />
                 <label for="modIsAdmin"> Administrador (Y/N) </label>
-                <input class="form-control" type="text" id="modIsAdmin" name="isAdmin" required="true"/>
-                <input type="submit" class="btn btn-default" value="Modificar usuario"/>
-            </div>
-        </form>
+                <input class="form-control" type="text" id="modIsAdmin" name="isAdmin" required="true" />
 
-        <br/><br/><br/>
-        <h1>Eliminar usuario</h1>
-        <form role="form" th:action="@{/management/user/}" method="post">
-            <div class="form-group">
-                <input type="hidden" name="_method" value="delete"/>
-                <label for="delUserId"> ID de usuario </label>
-                <input class="form-control" type="text" id="delUserId" name="userId" required="true"/>
-                <input type="submit" class="btn btn-default" value="Eliminar usuario"/>
-            </div>
-        </form>
+                <input type="submit" class="btn btn-success padding-top" value="Modificar usuario" />
+              </div>
+          </form>
 
+          <br/><br/><br/>
+          <h1>Eliminar usuario</h1>
+          <form role="form" th:action="@{/management/user/}" method="post">
+              <div class="form-group">
+                <input type="hidden" name="_method" value="delete" />
+                <label class="padding-top" for="delUserId"> ID de usuario </label>
+                <input class="form-control" type="text" id="delUserId" name="userId" required="true" />
+
+                <input type="submit" class="btn btn-danger padding-top" value="Eliminar usuario" />
+              </div>
+          </form>
+      </div>
     </div>
 </div>
 </body>
