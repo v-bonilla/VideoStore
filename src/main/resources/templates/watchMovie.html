@@ -17,6 +17,7 @@
 </head>
 <body>
 <div class="container-fluid">
+    <!-- ______________________________ Barra de navegacion ______________________________ -->
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-default navbar-inverse navbar-fixed-top"
@@ -46,7 +47,7 @@
                     </ul>
                     <form class="navbar-form navbar-left" role="search" action="#" th:action="@{/movie/search}" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="movieTitle"/>
+                            <input class="form-control" type="text" name="movieTitle" placeholder="Buscar una película"/>
                             <input type="submit" value="Buscar" class="btn btn-default" />
                         </div>
                     </form>
@@ -57,12 +58,15 @@
 
         </div>
     </div>
+    <!-- ______________________________ Barra de navegacion ______________________________ -->
+    <!-- ______________________________ Video ______________________________ -->
     <div id="vidcontainer" class="container qt">
         <h2 th:text="${movie.movieTitle}">Titulo</h2>
         <div class="embed-responsive embed-responsive-16by9">
             <iframe id="vid" class="embed-responsive-item" th:src="${movie.movieUrl}" frameborder="0" allowfullscreen="true"></iframe>
         </div>
     </div>
+    <!-- ______________________________ Video ______________________________ -->
 </div>
 </body>
 </html>

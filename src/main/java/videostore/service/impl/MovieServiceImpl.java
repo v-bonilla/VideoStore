@@ -22,21 +22,26 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private TMDBRestService tmdbRestService;
 
+    // Get a list with all movies in the repository
     @Override
     public List<Movie> getMovies() {
         return repository.findAll();
     }
 
+    // Return a movie from its ID
     @Override
     public Movie detailById(Integer movieId) {
         return repository.findByMovieId(movieId);
     }
 
+    // Return a movie from its title
     @Override
     public Movie detailByTitle(String movieTitle) {
         return repository.findByMovieTitleIsLike(movieTitle);
     }
 
+    // Save a movie in the repository
+    // If there are empty fields in the movie info, it uses an API to complete the fields
     @Override
     public void newMovie(Movie movie) {
         if (repository.findByMovieTitleIsLike(movie.getMovieTitle()) == null){
@@ -62,6 +67,8 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
+    // Save a modified movie in the repository
+    // If there are empty fields in the movie info, it set the old fields
     @Override
     public void modifyMovie(Movie movie) {
         //TODO: si cambia titulo llamar a API
@@ -95,6 +102,7 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
+    // Delete a movie
     @Override
     public void deleteMovie(Integer movieId) {
         Movie actualMovie = repository.findByMovieId(movieId);

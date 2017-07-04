@@ -25,7 +25,8 @@ public class TMDBRestServiceImpl implements TMDBRestService {
     private TmdbMovies moviesApi = tmdbApi.getMovies();
     private final int POSTER_SIZE = 3;
 
-
+    // It request to The Movie DB API
+    // Get all the info of a movie
     @Override
     public Movie getMovieInfo(Movie ourMovie){
         // Search movie
@@ -39,12 +40,13 @@ public class TMDBRestServiceImpl implements TMDBRestService {
             ourMovie.setMovieDirector(movieDb.getCredits().getCrew().get(0).getName());
             ourMovie.setMovieActors(castToString(movieDb.getCredits().getCast()));
             ourMovie.setMovieUrlFront(tmdbApi.getConfiguration().getSecureBaseUrl() + tmdbApi.getConfiguration().getPosterSizes().get(POSTER_SIZE) + movieDb.getPosterPath());
-            // Formatea el double con DecimalFormat y parsea a double porque DecimalFormat devuelve un string
+            // Format the double with DecimalFormat class and parse the result to double because DecimalFormat.format(...) returns a string
             ourMovie.setMovieRating(Double.parseDouble(new DecimalFormat("#.##").format((double) movieDb.getVoteAverage())));
         }
         return ourMovie;
     }
 
+    // Get movie description
     @Override
     public String getMovieDesc(String movieTitle) {
         // Search movie
@@ -58,6 +60,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return res;
     }
 
+    // Get movie year
     @Override
     public Integer getMovieYear(String movieTitle) {
         // Search movie
@@ -71,6 +74,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return res;
     }
 
+    // Get movie director
     @Override
     public String getMovieDirector(String movieTitle) {
         // Search movie
@@ -84,6 +88,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return res;
     }
 
+    // Get movie actors
     @Override
     public String getMovieActors(String movieTitle) {
         // Search movie
@@ -97,6 +102,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return res;
     }
 
+    // Get movie poster url
     @Override
     public String getMovieUrlFront(String movieTitle) {
         // Search movie
@@ -110,6 +116,7 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return urlFront;
     }
 
+    // Get movie rating
     @Override
     public Double getMovieRating(String movieTitle) {
         // Search movie
@@ -124,13 +131,14 @@ public class TMDBRestServiceImpl implements TMDBRestService {
         return res;
     }
 
+    // Method to parse a List of strings to one string
     public String castToString(List<PersonCast> actorsArrayList){
         String res = "";
         Iterator<PersonCast> iterator = actorsArrayList.iterator();
         while (iterator.hasNext()){
             res += iterator.next().getName() + ", ";
         }
-        // Quita la ultima coma
+        // Remove the last comma
         return res.substring(0, res.lastIndexOf(","));
     }
 

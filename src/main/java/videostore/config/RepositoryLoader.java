@@ -31,13 +31,13 @@ public class RepositoryLoader {
 
     @PostConstruct
     private void initRepository(){
-        // Admin user
+        // Create admin user
         GrantedAuthority[] roles = { new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_ADMIN") };
         User user = new User("admin",new BCryptPasswordEncoder().encode("admin"),"admin@videostore.com", Arrays.asList(roles));
         if (repositoryOfUsers.findByUserName(user.getUserName()) == null) {
             repositoryOfUsers.save(user);
         }
-        // Movies
+        // Add some movies
         Movie movie1 = new Movie("Interstellar",
                 "https://www.youtube.com/embed/UoSSbmD9vqc",
                 "",

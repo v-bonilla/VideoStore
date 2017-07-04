@@ -19,16 +19,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository repository;
 
+    // Get a list with all users in the repository
     @Override
     public List<User> getUsers() {
         return repository.findAll();
     }
 
+    // Save a new user in the repository
     @Override
     public void newUser(User user) {
         repository.save(user);
     }
 
+    // Save a modified user in the repository
+    // If there are empty fields in the user info, it set the old fields
     @Override
     public void modifyUser(User user) {
         User actualUser = repository.findByUserId(user.getUserId());
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // Delete a user
     @Override
     public void deleteUser(Integer userId) {
         User actualUser = repository.findByUserId(userId);
@@ -55,7 +60,5 @@ public class UserServiceImpl implements UserService {
             repository.delete(actualUser);
         }
     }
-
-
 
 }

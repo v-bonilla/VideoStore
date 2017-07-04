@@ -37,6 +37,7 @@ public class HomeController {
                 isAdmin = true;
             }
         }
+        // Get list of movies to display in carousel. If there are less than three movies carousel will crash
         List<Movie> movies = movieService.getMovies();
         if (movies.size() > 3){
             movies = movies.subList(0, 3);
