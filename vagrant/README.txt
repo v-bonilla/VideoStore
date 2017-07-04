@@ -1,7 +1,8 @@
 Configuración del despligue:
 Se han usado dos scripts de provisionamiento: webProvision.sh para la aplicacion spring y dbProvision.sh para la bbdd MySQL.
 Para un correcto despliegue junto al Vagrantfile deben estar los dos scripts de provisionamiento, un tercer script
- usado por la VM de la app web (para arrancar la app durante el arranque de la VM) y un directorio data con el jar de la web app.
+ usado por la VM de la app web (para arrancar la app durante el arranque de la VM) y un directorio data con
+ el jar de la web app y el tercer script.
 La máquina virtual empleada es la proporcionada en clase: atorre/daw.
 El provisionamiento de las maquinas tarda unos minutos puesto que tiene que descargar e intalar el cliente de MySQL
  y por otro lado el JDK de Java, con todas sus dependencias.

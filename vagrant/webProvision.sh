@@ -11,7 +11,7 @@ echo "Updating Java settings..."
 sudo update-java-alternatives -s java-8-oracle 
 
 echo "Adding execute permission to script for start webapp..."
-chmod +x /opt/startVideostore.sh
+sudo chmod +x /opt/startVideostore.sh
 
 echo "Setting up script on startup..."
 sudo mv /opt/startVideostore.sh /etc/init.d/
