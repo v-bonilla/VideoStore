@@ -1,9 +1,9 @@
-#DAW's project#
+#DAW's project
 Developed on 2017 by:
  - Víctor Bonilla
  - Álvaro Fernández
 
-##Uso de la aplicación:##
+##Uso de la aplicación:
   Nota: leer README.txt del directorio vagrant antes de desplegar la aplicacion.
   
   La aplicación se desplegará en http://192.168.100.200:8080/
