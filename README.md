@@ -1,26 +1,24 @@
 # DAW's project
-Developed on 2017 by:
+Developed at 2017 by:
  - Víctor Bonilla
  - Álvaro Fernández
 
-## Uso de la aplicación:
-  Nota: leer README.txt del directorio vagrant antes de desplegar la aplicacion.
+## How to use:
+Note: read README.txt vagrant directory before launch the application.
   
-  La aplicación se desplegará en http://192.168.100.200:8080/
+The application will launch in http://192.168.100.200:8080/
  
-  Para el primer inicio de sesion se debe usar el usuario "admin" con contraseña "admin".
-  
-  La aplicacion dispone de las siguientes peliculas tras iniciar:
+On the first login, it has to be used "admin" as user and "admin" as password.
+
+The application has the next movies after start:
   - Interstellar
   - Deadpool
-  - Regreso al futuro II
-  
-  Si se quiere usar la barra de busqueda se debe introducir el titulo exacto de la pelicula a buscar.
-  
-  Si se quiere modificar un usuario o pelicula los unicos campos obligatorios son el ID y Administrador en el caso de usuario,
-  los campos que no se rellenen no se modificaran.
-  
-  Al añadir una pelicula, el campo URL debe ser un enlace a un video de YouTube cuyo path relativo comience por "embed"
-  (es el enlace disponible en el atributo src mostrado cuando se pincha en compartir video -> insertar).
-  
-  La opcion de administracion en la barra de navegacion solo aparece cuando el usuario tiene el rol de administrador.
+  - Back to the Future II
+
+To search a movie with the search bar it has to be typed the exact movie title.
+
+To modify an user or a movie, the mandatory form fields are "ID" and "Administrador" in case of the user. The empty form fields won't be modified.
+
+When adding a film, the URL form field must be a link to a YouTube video with a relative path starting by "embed" (is the link shown in the src attribute when clicked in share video -> insert).
+
+The administration option in the navbar appears only when the user has the administrator rol.
